@@ -94,6 +94,7 @@ body {
   border: 1px solid var(--border-color);
   width: 100%;
   margin: 10px 0;
+  background: none;
 }
 
 .btn:hover {
@@ -114,6 +115,7 @@ body {
 .btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  transform: none;
 }
 
 .btn-google {
@@ -168,7 +170,7 @@ body {
 
 .form-control {
   width: 100%;
-  padding: 12px 12px 12px 40px;
+  padding: 12px 40px; /* Adjusted padding for icons on both sides */
   border: 1px solid var(--border-color);
   background-color: var(--input-background);
   border-radius: 6px;
@@ -179,8 +181,12 @@ body {
   appearance: none;
 }
 
+/* Specific padding for select elements without left icon */
+.date-select-container .form-control {
+    padding-left: 12px;
+}
+
 select.form-control {
-  padding: 12px;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
@@ -227,6 +233,252 @@ select.form-control {
   display: block;
 }
 
+/* Document Upload Styles */
+.document-section {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 2px dashed var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.document-section.dragover {
+  border-color: var(--facebook-blue);
+  background: #e7f3ff;
+}
+
+.document-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.document-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.document-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1c1e21;
+}
+
+.upload-area {
+  text-align: center;
+  padding: 24px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.upload-area:hover {
+  background: #f0f2f5;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  opacity: 0.6;
+  display: block;
+}
+
+.upload-text {
+  font-size: 15px;
+  color: #1c1e21;
+  margin-bottom: 8px;
+}
+
+.upload-subtext {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.upload-btn {
+  background: var(--facebook-blue);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.upload-btn:hover {
+  background: #166fe5;
+}
+
+.file-preview {
+  display: none;
+  margin-top: 16px;
+  padding: 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.file-preview.show {
+  display: block;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.file-details {
+  display: flex;
+  align-items: center;
+}
+
+.file-thumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  margin-right: 12px;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+}
+
+.file-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1e21;
+}
+
+.file-size {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.remove-file {
+  background: #e4e6ea;
+  border: none;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.remove-file:hover {
+  background: #d8dadf;
+}
+
+.document-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.doc-type {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 100px;
+}
+
+.doc-type:hover {
+  border-color: var(--facebook-blue);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.doc-type.selected {
+  border-color: var(--facebook-blue);
+  background: #e7f3ff;
+}
+
+.doc-type-icon {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 8px;
+  opacity: 0.7;
+  display: block;
+}
+
+.doc-type-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1c1e21;
+}
+
+.requirements {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 16px 0;
+}
+
+.requirements-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #856404;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.requirements-list {
+  font-size: 13px;
+  color: #856404;
+  margin: 0;
+  padding-left: 16px;
+}
+
+.security-info {
+  background: #e3f2fd;
+  border: 1px solid #2196f3;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: #1565c0;
+  display: flex;
+  align-items: center;
+}
+
+.verification-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.progress-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e4e6ea;
+  border-top: 2px solid var(--facebook-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -238,6 +490,7 @@ select.form-control {
   z-index: 1000;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .modal-content {
@@ -268,78 +521,27 @@ select.form-control {
   position: relative;
 }
 
+/* --- FIX START --- */
 .modal-close {
   position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #eee;
-  border: none;
+  top: 10px;
+  right: 10px;
   width: 30px;
   height: 30px;
+  background-color: #f0f2f5;
   border-radius: 50%;
-  font-size: 20px;
+  border: none;
   cursor: pointer;
-  color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.modal-logo {
-  height: 24px;
-  margin-bottom: 0;
-}
-
-.modal-title {
   font-size: 18px;
-  font-weight: 500;
-}
-
-.modal-body {
-  padding: 24px;
-}
-
-#facebookModal .modal-body .form-group label {
-    display: none;
-}
-
-.security-note {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 12px;
   color: var(--text-secondary);
-  margin-top: 16px;
+  transition: background-color 0.2s;
 }
 
-.security-note svg {
-  stroke: var(--success-color);
-}
-
-.page-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  width: 100%;
-  max-width: 500px;
-  margin: 20px auto 0;
-}
-
-.footer-links {
-  margin-bottom: 10px;
-}
-
-.footer-links a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  margin: 0 8px;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
+.modal-close:hover {
+  background-color: #d8dadf;
 }
 
 .password-toggle-icon {
@@ -351,19 +553,65 @@ select.form-control {
   height: 20px;
   opacity: 0.6;
   cursor: pointer;
+  transition: opacity 0.2s;
 }
 
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 1s ease-in-out infinite;
+.password-toggle-icon:hover {
+  opacity: 1;
+}
+/* --- FIX END --- */
+
+.modal-logo {
+  max-height: 24px;
+  margin-bottom: 8px;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.modal-title {
+  font-size: 18px;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.security-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 16px;
+}
+
+.page-footer {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  color: var(--text-secondary);
 }
